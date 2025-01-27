@@ -1,0 +1,22 @@
+﻿@page
+@model Pr.Pages.DebagModel
+@{
+}
+
+<h2>Registered Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

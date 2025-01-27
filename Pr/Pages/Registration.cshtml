@@ -1,0 +1,68 @@
+﻿@page
+@model Perforator.Pages.PersonalAccountModel
+@{
+        
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <form method="post" onsubmit="validateForm(event)">
+        <div>
+            <label for="login">Логин:</label>
+            <input type="text" id="login" name="Login" />
+            <br />
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="Password" />
+            <br />
+            <label for="password1">Повторите пароль:</label>
+            <input type="password" id="password1" />
+            <br />
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+
+            const password = document.getElementById("password").value;
+            const password1 = document.getElementById("password1").value;
+
+            if (password !== password1) {
+                alert("Пароли не совпадают!");
+                return;
+            }
+
+
+            const user = {
+            Name: document.getElementById("login").value,
+            Password: password
+            };
+
+                    console.log(user);
+            fetch('/Registration', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            .then(response => {
+                if (!response.ok) {
+                
+                    throw new Error(`HTTP error! Status code: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                window.location.href = '/Success';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message);
+            });
+        }
+    </script>
+    }
